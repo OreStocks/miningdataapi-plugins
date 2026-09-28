@@ -1,0 +1,29 @@
+{
+  "$schema": "https://code.claude.com/schemas/marketplace.json",
+  "name": "orestocks",
+  "owner": {
+    "name": "OreStocks",
+    "email": "support@miningdataapi.com"
+  },
+  "metadata": {
+    "description": "Claude Code plugins by OreStocks. Mining Data API: drill results, financings, financial statements, projects, technical reports and spin-outs from public filings.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "miningdata",
+      "source": "./plugins/miningdata",
+      "description": "Query the Mining Data API from Claude Code over OAuth: screen drill results, build company and project briefings, track financings. Read-only; requires an active Mining Data API subscription.",
+      "version": "1.0.0",
+      "author": {
+        "name": "OreStocks",
+        "email": "support@miningdataapi.com"
+      },
+      "homepage": "https://miningdataapi.com/plugins",
+      "repository": "https://github.com/OreStocks/miningdataapi-plugins",
+      "license": "MIT",
+      "category": "data",
+      "keywords": ["mining", "drill-results", "exploration", "financings", "mcp", "orestocks"]
+    }
+  ]
+}

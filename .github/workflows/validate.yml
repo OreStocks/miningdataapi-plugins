@@ -1,0 +1,69 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check JSON manifests parse
+        run: |
+          for f in .claude-plugin/marketplace.json plugins/miningdata/.claude-plugin/plugin.json plugins/miningdata/.mcp.json; do
+            python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$f"
+          done
+
+      - name: Enforce the plugin's security posture
+        # The plugin must stay markdown + manifests only: no hooks, agents,
+        # scripts or credentials, and the MCP server must be the https
+        # production endpoint with no headers.
+        run: |
+          set -eu
+          cd plugins/miningdata
+          for forbidden in hooks agents scripts bin; do
+            if [ -e "$forbidden" ]; then echo "::error::$forbidden/ is not allowed in this plugin"; exit 1; fi
+          done
+          if find . -type f ! -name '*.md' ! -name '*.json' | grep -q .; then
+            echo "::error::only .md and .json files are allowed"; find . -type f ! -name '*.md' ! -name '*.json'; exit 1
+          fi
+          python3 - <<'PY'
+          import json, sys
+          cfg = json.load(open(".mcp.json"))
+          servers = cfg.get("mcpServers", {})
+          assert list(servers) == ["miningdata"], "exactly one server named miningdata"
+          s = servers["miningdata"]
+          assert s == {"type": "http", "url": "https://api.miningdataapi.com/mcp"}, "server must be the https endpoint with no headers or env"
+          manifest = json.load(open(".claude-plugin/plugin.json"))
+          for key in ("hooks", "agents", "mcpServers", "lspServers", "userConfig"):
+              assert key not in manifest, f"{key} must not be declared in plugin.json"
+          print("posture ok")
+          PY
+          if grep -rIl --include='*.md' -e 'os_live_' -e 'os_test_' -e 'sb_secret_' -e 'eyJhbGci' . ; then
+            echo "::error::credential-looking string found"; exit 1
+          fi
+          if grep -rIn --include='*.md' -E '^!' commands skills; then
+            echo "::error::shell preprocessing lines are not allowed"; exit 1
+          fi
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate marketplace and plugin
+        run: |
+          claude plugin validate . --strict
+          claude plugin validate plugins/miningdata --strict
+
+      - name: Version matches tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VERSION=$(python3 -c "import json; print(json.load(open('plugins/miningdata/.claude-plugin/plugin.json'))['version'])")
+          test "$TAG" = "$VERSION" || { echo "::error::tag v$TAG does not match plugin version $VERSION"; exit 1; }
