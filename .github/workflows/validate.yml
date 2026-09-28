@@ -15,11 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check JSON manifests parse
+      - name: Check JSON and YAML manifests parse
         run: |
-          for f in .claude-plugin/marketplace.json plugins/miningdata/.claude-plugin/plugin.json plugins/miningdata/.mcp.json; do
+          for f in .claude-plugin/marketplace.json plugins/miningdata/.claude-plugin/plugin.json plugins/miningdata/.mcp.json plugins/miningdata/plugin.json plugins/miningdata/mcp.json; do
             python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$f"
           done
+          pip3 install --quiet pyyaml
+          python3 -c "import yaml,sys; yaml.safe_load(open(sys.argv[1]))" plugins/miningdata/skills/mining-data/agents/openai.yaml
 
       - name: Enforce the plugin's security posture
         # The plugin must stay markdown + manifests only: no hooks, agents,
@@ -31,19 +33,34 @@ jobs:
           for forbidden in hooks agents scripts bin; do
             if [ -e "$forbidden" ]; then echo "::error::$forbidden/ is not allowed in this plugin"; exit 1; fi
           done
-          if find . -type f ! -name '*.md' ! -name '*.json' | grep -q .; then
-            echo "::error::only .md and .json files are allowed"; find . -type f ! -name '*.md' ! -name '*.json'; exit 1
+          if find . -type f ! -name '*.md' ! -name '*.json' ! -name '*.yaml' | grep -q .; then
+            echo "::error::only .md, .json and .yaml files are allowed"; find . -type f ! -name '*.md' ! -name '*.json' ! -name '*.yaml'; exit 1
           fi
           python3 - <<'PY'
-          import json, sys
+          import json, yaml
+          URL = "https://api.miningdataapi.com/mcp"
+          # Claude Code layout
           cfg = json.load(open(".mcp.json"))
           servers = cfg.get("mcpServers", {})
           assert list(servers) == ["miningdata"], "exactly one server named miningdata"
-          s = servers["miningdata"]
-          assert s == {"type": "http", "url": "https://api.miningdataapi.com/mcp"}, "server must be the https endpoint with no headers or env"
+          assert servers["miningdata"] == {"type": "http", "url": URL}, "server must be the https endpoint with no headers or env"
           manifest = json.load(open(".claude-plugin/plugin.json"))
           for key in ("hooks", "agents", "mcpServers", "lspServers", "userConfig"):
-              assert key not in manifest, f"{key} must not be declared in plugin.json"
+              assert key not in manifest, f"{key} must not be declared in .claude-plugin/plugin.json"
+          # Portable (OpenAI) layout
+          portable = json.load(open("mcp.json"))
+          pservers = portable.get("mcpServers", {})
+          assert list(pservers) == ["miningdata"], "portable mcp.json must declare exactly miningdata"
+          assert pservers["miningdata"] == {"type": "streamable-http", "url": URL}, "portable server must be the https endpoint only"
+          root = json.load(open("plugin.json"))
+          ext = root.get("extensions", {}).get("com.openai", {})
+          assert "hooks" not in ext and "apps" not in ext, "no hooks or app mappings in the public package"
+          assert root["version"] == manifest["version"], "plugin.json and .claude-plugin/plugin.json versions must match"
+          for url_key in ("websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"):
+              assert ext["interface"][url_key].startswith("https://miningdataapi.com"), f"{url_key} must point at miningdataapi.com"
+          dep = yaml.safe_load(open("skills/mining-data/agents/openai.yaml"))
+          for tool in dep.get("dependencies", {}).get("tools", []):
+              assert tool.get("url") == URL, "skill dependencies may only reference the production endpoint"
           print("posture ok")
           PY
           # Real-shaped secrets only; the docs legitimately show placeholders like "os_live_…".
@@ -69,5 +86,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           TAG="${GITHUB_REF_NAME#v}"
-          VERSION=$(python3 -c "import json; print(json.load(open('plugins/miningdata/.claude-plugin/plugin.json'))['version'])")
+          VERSION=$(python3 -c "import json; print(json.load(open('plugins/miningdata/plugin.json'))['version'])")
           test "$TAG" = "$VERSION" || { echo "::error::tag v$TAG does not match plugin version $VERSION"; exit 1; }

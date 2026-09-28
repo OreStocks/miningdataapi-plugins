@@ -16,9 +16,12 @@ plugin: a pointer to the remote MCP server, a skill and two slash commands.
 /mcp
 ```
 
-ChatGPT and Claude (web, desktop, mobile) do not need this repository: add
-`https://api.miningdataapi.com/mcp` as a connector and sign in. Steps at
-<https://miningdataapi.com/plugins>.
+The same folder carries the portable Agent Plugins manifest OpenAI reads
+(`plugin.json`, `mcp.json`, `skills/*/agents/openai.yaml`), which is what
+OreStocks submits to the ChatGPT plugin directory. Claude (web, desktop,
+mobile) and ChatGPT users do not need this repository: add
+`https://api.miningdataapi.com/mcp` as a connector or MCP app and sign in.
+Steps at <https://miningdataapi.com/plugins>.
 
 ## Trust
 

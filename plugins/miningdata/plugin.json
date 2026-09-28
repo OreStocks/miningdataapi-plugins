@@ -1,0 +1,37 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "miningdata",
+  "version": "1.1.0",
+  "description": "Mining Data API: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings. Read-only, OAuth sign-in, requires an active Mining Data API subscription.",
+  "author": {
+    "name": "OreStocks",
+    "email": "support@miningdataapi.com",
+    "url": "https://miningdataapi.com"
+  },
+  "homepage": "https://miningdataapi.com/plugins",
+  "repository": "https://github.com/OreStocks/miningdataapi-plugins",
+  "license": "MIT",
+  "keywords": ["mining", "drill-results", "exploration", "financings", "mcp", "orestocks"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Mining Data API",
+        "shortDescription": "Mining intelligence from filings",
+        "longDescription": "Ask for the strongest recent drill intercepts, a briefing on a ticker, every placement above a price, or project economics such as NPV and IRR. Mining Data API answers from structured facts extracted from public filings of listed mining companies: drill results, financings, financial statements, projects, technical reports and spin-outs. Every answer can cite the disclosure it came from.\n\nAll tools are read-only. You sign in with your Mining Data API account; an active paid subscription is required for data tools (usage and plan information work on every plan).",
+        "developerName": "OreStocks",
+        "category": "Productivity",
+        "capabilities": ["Read"],
+        "websiteURL": "https://miningdataapi.com",
+        "supportURL": "https://miningdataapi.com/plugins",
+        "privacyPolicyURL": "https://miningdataapi.com/privacy",
+        "termsOfServiceURL": "https://miningdataapi.com/terms",
+        "defaultPrompt": [
+          "Show me the best gold drill intercepts released in the last 30 days.",
+          "Build a briefing on ABRA.V: flagship project, drilling, financings and cash runway.",
+          "Which lithium projects in Argentina have a published after-tax NPV?"
+        ],
+        "brandColor": "#B9481F"
+      }
+    }
+  }
+}
