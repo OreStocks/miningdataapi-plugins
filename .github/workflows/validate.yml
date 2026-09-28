@@ -46,7 +46,11 @@ jobs:
               assert key not in manifest, f"{key} must not be declared in plugin.json"
           print("posture ok")
           PY
-          if grep -rIl --include='*.md' -e 'os_live_' -e 'os_test_' -e 'sb_secret_' -e 'eyJhbGci' . ; then
+          # Real-shaped secrets only; the docs legitimately show placeholders like "os_live_…".
+          if grep -rIlE --include='*.md' --include='*.json' \
+               -e 'os_(live|test)_[0-9a-f]{8}_[0-9a-f]{48}' \
+               -e 'sb_(secret|publishable)_[A-Za-z0-9_-]{20,}' \
+               -e 'eyJhbGci[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}' . ; then
             echo "::error::credential-looking string found"; exit 1
           fi
           if grep -rIn --include='*.md' -E '^!' commands skills; then
