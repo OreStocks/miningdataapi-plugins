@@ -14,8 +14,8 @@ small as the format allows:
 
 | Component | Present | Notes |
 |---|---|---|
-| Remote MCP server (`.mcp.json`) | Yes | One https URL, no headers, no environment variables. OAuth handled by Claude Code. |
-| Skill | Yes | Markdown only. Restricts itself to the plugin's MCP tools via `allowed-tools`. |
+| Remote MCP server (`.mcp.json`, `mcp.json`) | Yes | One https URL in each layout, no headers, no environment variables. OAuth handled by the client. |
+| Skill | Yes | Markdown plus a small `agents/openai.yaml` (display metadata and the MCP dependency, same URL). Restricts itself to the plugin's MCP tools via `allowed-tools` in Claude Code. |
 | Slash commands | Yes | Markdown only. Each lists exactly the MCP tools it may call. No shell preprocessing. |
 | Hooks | No | The plugin never executes commands on your machine. |
 | Agents | No | |

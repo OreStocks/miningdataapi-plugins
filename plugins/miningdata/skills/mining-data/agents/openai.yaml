@@ -1,0 +1,13 @@
+# OpenAI plugin metadata for this skill (ChatGPT and Codex). Claude Code ignores this file.
+interface:
+  display_name: "Mining Data API"
+  short_description: "Query mining data from filings"
+  default_prompt: "Show me the best gold drill intercepts released in the last 30 days."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "miningdata"
+      description: "Mining Data API: read-only search, records, dossiers and usage over drill results, financings, financial statements, projects, technical reports and spin-outs. Requires sign-in and an active subscription."
+      transport: "streamable_http"
+      url: "https://api.miningdataapi.com/mcp"

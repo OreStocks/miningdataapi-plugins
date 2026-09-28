@@ -1,7 +1,7 @@
 {
   "$schema": "https://code.claude.com/schemas/plugin.json",
   "name": "miningdata",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Mining Data API for Claude Code: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings. Read-only, OAuth sign-in, requires an active Mining Data API subscription.",
   "author": {
     "name": "OreStocks",
