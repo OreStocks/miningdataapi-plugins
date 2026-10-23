@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "miningdataapi",
   "version": "1.2.0",
-  "description": "MiningDataAPI: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings of listed mining companies. Read-only, OAuth sign-in, requires an active Mining Data API subscription.",
+  "description": "Mining Data API: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings of listed mining companies. Read-only, OAuth sign-in, requires an active Mining Data API subscription.",
   "author": {
     "name": "OreStocks",
     "email": "support@miningdataapi.com",
@@ -15,9 +15,9 @@
   "extensions": {
     "com.openai": {
       "interface": {
-        "displayName": "MiningDataAPI",
+        "displayName": "Mining Data API",
         "shortDescription": "Mining data from filings",
-        "longDescription": "Ask for the strongest recent drill intercepts, a briefing on a ticker, every placement above a price, or project economics such as NPV and IRR. MiningDataAPI answers from structured facts extracted from public filings of listed mining companies: drill results, financings, financial statements, projects, technical reports and spin-outs. Every answer can cite the disclosure it came from.\n\nAll tools are read-only. You sign in with your Mining Data API account. Data tools are available on paid Mining Data API plans; usage and plan information work on every plan.",
+        "longDescription": "Ask for the strongest recent drill intercepts, a briefing on a ticker, every placement above a price, or project economics such as NPV and IRR. Mining Data API answers from structured facts extracted from public filings of listed mining companies: drill results, financings, financial statements, projects, technical reports and spin-outs. Every answer can cite the disclosure it came from.\n\nAll tools are read-only. You sign in with your Mining Data API account. Data tools are available on paid Mining Data API plans; usage and plan information work on every plan.",
         "developerName": "OreStocks",
         "category": "Productivity",
         "capabilities": ["Read"],
@@ -90,7 +90,7 @@
         "commerce_description": "No commerce. The plugin is read-only and never sells, starts a subscription or links to a checkout. Data tools require an existing paid Mining Data API plan; the only link it ever shows is the public pricing page for plan information."
       },
       "publication": {
-        "release_notes": "First public directory release of MiningDataAPI for ChatGPT. Read-only access to drill results, financings, financial statements, projects, technical reports and spin-outs over OAuth."
+        "release_notes": "First public directory release of Mining Data API for ChatGPT. Read-only access to drill results, financings, financial statements, projects, technical reports and spin-outs over OAuth."
       }
     }
   }

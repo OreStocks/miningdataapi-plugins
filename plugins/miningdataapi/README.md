@@ -1,4 +1,4 @@
-# MiningDataAPI plugin for Claude Code and ChatGPT
+# Mining Data API plugin for Claude Code and ChatGPT
 
 One package, two layouts: the Claude Code manifest (`.claude-plugin/`,
 `.mcp.json`, `commands/`) and the portable Agent Plugins manifest OpenAI

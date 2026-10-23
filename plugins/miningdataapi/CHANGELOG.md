@@ -3,7 +3,7 @@
 ## 1.2.0
 
 - ChatGPT directory submission package: the portable manifest is now
-  `miningdataapi` (shown as "MiningDataAPI"), declares OAuth with dynamic
+  `miningdataapi` (shown as "Mining Data API"), declares OAuth with dynamic
   client registration in `mcp.json`, ships listing icons under `assets/`
   and carries the review block OpenAI imports (five positive and three
   negative test cases, release notes). `scripts/build-openai-package.sh`

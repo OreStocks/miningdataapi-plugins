@@ -64,12 +64,12 @@ jobs:
           assert pauth.get("type") == "oauth" and pauth.get("client", {}).get("mode") == "dcr", "portable server must declare OAuth with dynamic client registration"
           assert "clientSecret" not in json.dumps(pserver), "no client secret in the package"
           root = json.load(open("plugin.json"))
-          assert root["name"] == "miningdataapi", "portable plugin name is miningdataapi (listed as MiningDataAPI)"
+          assert root["name"] == "miningdataapi", "portable plugin name is miningdataapi (listed as Mining Data API)"
           ext = root.get("extensions", {}).get("com.openai", {})
           assert "hooks" not in ext and "apps" not in ext, "no hooks or app mappings in the public package"
           assert root["version"] == manifest["version"], "plugin.json and .claude-plugin/plugin.json versions must match"
           iface = ext["interface"]
-          assert iface["displayName"] == "MiningDataAPI", "display name is MiningDataAPI"
+          assert iface["displayName"] == "Mining Data API", "display name is Mining Data API"
           assert len(iface["displayName"]) <= 30 and len(iface["shortDescription"]) <= 30, "displayName and shortDescription are capped at 30 characters"
           assert len(iface["longDescription"]) <= 4000 and len(iface["developerName"]) <= 80
           for url_key in ("websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"):
