@@ -17,11 +17,11 @@ jobs:
 
       - name: Check JSON and YAML manifests parse
         run: |
-          for f in .claude-plugin/marketplace.json plugins/miningdata/.claude-plugin/plugin.json plugins/miningdata/.mcp.json plugins/miningdata/plugin.json plugins/miningdata/mcp.json; do
+          for f in .claude-plugin/marketplace.json plugins/miningdataapi/.claude-plugin/plugin.json plugins/miningdataapi/.mcp.json plugins/miningdataapi/plugin.json plugins/miningdataapi/mcp.json; do
             python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$f"
           done
           pip3 install --quiet pyyaml
-          python3 -c "import yaml,sys; yaml.safe_load(open(sys.argv[1]))" plugins/miningdata/skills/mining-data/agents/openai.yaml
+          python3 -c "import yaml,sys; yaml.safe_load(open(sys.argv[1]))" plugins/miningdataapi/skills/mining-data/agents/openai.yaml
 
       - name: Enforce the plugin's security posture
         # The plugin must stay markdown + manifests only: no hooks, agents,
@@ -29,7 +29,7 @@ jobs:
         # production endpoint with no headers.
         run: |
           set -eu
-          cd plugins/miningdata
+          cd plugins/miningdataapi
           for forbidden in hooks agents scripts bin; do
             if [ -e "$forbidden" ]; then echo "::error::$forbidden/ is not allowed in this plugin"; exit 1; fi
           done
@@ -48,16 +48,16 @@ jobs:
           # Claude Code layout
           cfg = json.load(open(".mcp.json"))
           servers = cfg.get("mcpServers", {})
-          assert list(servers) == ["miningdata"], "exactly one server named miningdata"
-          assert servers["miningdata"] == {"type": "http", "url": URL}, "server must be the https endpoint with no headers or env"
+          assert list(servers) == ["miningdataapi"], "exactly one server named miningdataapi"
+          assert servers["miningdataapi"] == {"type": "http", "url": URL}, "server must be the https endpoint with no headers or env"
           manifest = json.load(open(".claude-plugin/plugin.json"))
           for key in ("hooks", "agents", "mcpServers", "lspServers", "userConfig"):
               assert key not in manifest, f"{key} must not be declared in .claude-plugin/plugin.json"
           # Portable (OpenAI) layout
           portable = json.load(open("mcp.json"))
           pservers = portable.get("mcpServers", {})
-          assert list(pservers) == ["miningdata"], "portable mcp.json must declare exactly miningdata"
-          pserver = pservers["miningdata"]
+          assert list(pservers) == ["miningdataapi"], "portable mcp.json must declare exactly miningdataapi"
+          pserver = pservers["miningdataapi"]
           assert pserver["type"] == "streamable-http" and pserver["url"] == URL, "portable server must be the https production endpoint"
           assert "headers" not in pserver, "portable server must not declare headers"
           pauth = pserver.get("extensions", {}).get("com.openai", {}).get("auth", {})
@@ -113,11 +113,11 @@ jobs:
       - name: Validate marketplace and plugin
         run: |
           claude plugin validate . --strict
-          claude plugin validate plugins/miningdata --strict
+          claude plugin validate plugins/miningdataapi --strict
 
       - name: Version matches tag
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           TAG="${GITHUB_REF_NAME#v}"
-          VERSION=$(python3 -c "import json; print(json.load(open('plugins/miningdata/plugin.json'))['version'])")
+          VERSION=$(python3 -c "import json; print(json.load(open('plugins/miningdataapi/plugin.json'))['version'])")
           test "$TAG" = "$VERSION" || { echo "::error::tag v$TAG does not match plugin version $VERSION"; exit 1; }

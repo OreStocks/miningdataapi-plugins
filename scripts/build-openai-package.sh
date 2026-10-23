@@ -8,7 +8,7 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
-plugin="$root/plugins/miningdata"
+plugin="$root/plugins/miningdataapi"
 cd "$plugin"
 
 python3 - <<'PY'

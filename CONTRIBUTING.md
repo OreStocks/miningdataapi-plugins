@@ -11,14 +11,14 @@ wording in the skill and commands.
   else. No headers, no environment expansion.
 - Commands and skills list the MCP tools they need in `allowed-tools`; do
   not widen to `*` or to non-MCP tools.
-- Bump `version` in `plugins/miningdata/.claude-plugin/plugin.json` and
-  `plugins/miningdata/CHANGELOG.md` for every user-visible change.
+- Bump `version` in `plugins/miningdataapi/.claude-plugin/plugin.json` and
+  `plugins/miningdataapi/CHANGELOG.md` for every user-visible change.
 
 ## Checks
 
 ```
 claude plugin validate . --strict
-claude plugin validate plugins/miningdata --strict
+claude plugin validate plugins/miningdataapi --strict
 ```
 
 CI runs the same commands. A CODEOWNER review is required to merge.

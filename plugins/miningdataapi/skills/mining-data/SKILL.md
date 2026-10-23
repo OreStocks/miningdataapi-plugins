@@ -1,12 +1,12 @@
 ---
 name: mining-data
 description: Use when the user asks about mining or exploration companies, drill results, intercepts, resource estimates, financings, placements, mining project economics (NPV, IRR, capex), technical reports (NI 43-101, JORC, S-K 1300) or spin-outs. Drives the Mining Data API MCP tools (search_*, get_record, dossiers) with the right filter vocabulary and citation discipline.
-allowed-tools: mcp__plugin_miningdata_miningdata__*
+allowed-tools: mcp__plugin_miningdataapi_miningdataapi__*
 ---
 
 # Mining Data API
 
-The `miningdata` MCP server exposes the OreStocks dataset: structured facts
+The `miningdataapi` MCP server exposes the OreStocks dataset: structured facts
 extracted from public filings of listed mining companies. Everything is
 read-only. Every record carries an id and a source filing; cite ids.
 
@@ -35,8 +35,8 @@ they have upgraded. `get_usage` always works and shows the current plan and
 limits.
 
 If the server answers 401 or the tools are missing, run `/mcp`, choose
-`miningdata` and sign in in the browser. Claude Code stores the token;
-`claude mcp logout miningdata` forgets it.
+`miningdataapi` and sign in in the browser. Claude Code stores the token;
+`claude mcp logout miningdataapi` forgets it.
 
 ## Workflow
 
@@ -83,5 +83,5 @@ Dates are `YYYY-MM-DD`. Grades and lengths use the units listed by
 
 ## Slash commands in this plugin
 
-- `/miningdata:screen-drills <commodity> [days]` screens recent intercepts.
-- `/miningdata:company-brief <ticker>` builds a briefing from the dossier.
+- `/miningdataapi:screen-drills <commodity> [days]` screens recent intercepts.
+- `/miningdataapi:company-brief <ticker>` builds a briefing from the dossier.

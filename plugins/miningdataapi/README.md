@@ -12,27 +12,24 @@ the plugin and list its tools, but every data tool returns
 `subscription_required` with a link to the public pricing page until the
 organisation is on a paid plan. The plugin never starts a purchase itself.
 
-Two identities, one package: Claude Code installs it as `miningdata`
-(`.claude-plugin/plugin.json`); the ChatGPT directory lists it as
-**MiningDataAPI** (`plugin.json`, root name `miningdataapi`).
 
 ## Install
 
 ```
 /plugin marketplace add OreStocks/miningdataapi-plugins
-/plugin install miningdata@orestocks
-/mcp                       # pick "miningdata" and sign in in the browser
+/plugin install miningdataapi@orestocks
+/mcp                       # pick "miningdataapi" and sign in in the browser
 ```
 
 The sign-in runs through the Mining Data API portal (OAuth 2.1). No API key
 is needed; Claude Code keeps the token in its credential store.
-`claude mcp logout miningdata` forgets it, and uninstalling the plugin
+`claude mcp logout miningdataapi` forgets it, and uninstalling the plugin
 removes it too.
 
 To use an API key instead (CI, shared machines), skip the plugin and run:
 
 ```
-claude mcp add --transport http miningdata https://api.miningdataapi.com/mcp \
+claude mcp add --transport http miningdataapi https://api.miningdataapi.com/mcp \
   --header "Authorization: Bearer os_live_…"
 ```
 
@@ -84,8 +81,8 @@ submission without contacting OpenAI support.
 
 ## Commands (Claude Code)
 
-- `/miningdata:screen-drills gold 30`
-- `/miningdata:company-brief RIO.AX`
+- `/miningdataapi:screen-drills gold 30`
+- `/miningdataapi:company-brief RIO.AX`
 
 Both commands are limited to the Mining Data API tools (`allowed-tools`);
 they cannot run shell commands or touch files.

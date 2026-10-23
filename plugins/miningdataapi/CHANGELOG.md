@@ -7,7 +7,12 @@
   client registration in `mcp.json`, ships listing icons under `assets/`
   and carries the review block OpenAI imports (five positive and three
   negative test cases, release notes). `scripts/build-openai-package.sh`
-  builds the ZIP to upload. The Claude Code plugin id stays `miningdata`.
+  builds the ZIP to upload.
+- Renamed from `miningdata` to `miningdataapi` everywhere: plugin id, MCP
+  server key, tool prefix (`mcp__plugin_miningdataapi_miningdataapi__*`)
+  and slash commands (`/miningdataapi:screen-drills`,
+  `/miningdataapi:company-brief`). Existing installs: `/plugin uninstall
+  miningdata@orestocks`, then install `miningdataapi@orestocks`.
 
 ## 1.1.0
 

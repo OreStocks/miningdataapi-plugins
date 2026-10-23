@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "miningdata": {
+    "miningdataapi": {
       "type": "http",
       "url": "https://api.miningdataapi.com/mcp"
     }

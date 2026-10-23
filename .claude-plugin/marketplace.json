@@ -11,8 +11,8 @@
   },
   "plugins": [
     {
-      "name": "miningdata",
-      "source": "./plugins/miningdata",
+      "name": "miningdataapi",
+      "source": "./plugins/miningdataapi",
       "description": "Query the Mining Data API from Claude Code over OAuth: screen drill results, build company and project briefings, track financings. Read-only; requires an active Mining Data API subscription.",
       "version": "1.2.0",
       "author": {
