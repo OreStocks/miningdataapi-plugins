@@ -27,8 +27,8 @@
         "termsOfServiceURL": "https://miningdataapi.com/terms",
         "defaultPrompt": [
           "Show me the best gold drill intercepts released in the last 30 days.",
-          "Build a briefing on ABRA.V: flagship project, drilling, financings and cash runway.",
-          "Which lithium projects in Argentina have a published after-tax NPV?"
+          "Build a briefing on FM.TO: flagship project, drilling, financings and cash runway.",
+          "Find and analyze standout copper drill results and explain the screening criteria."
         ],
         "brandColor": "#B9481F",
         "brandColorDark": "#FF9157",
@@ -48,15 +48,15 @@
             },
             {
               "description": "Company briefing from a ticker",
-              "prompt": "Build a briefing on ABRA.V: flagship project, drilling, financings and cash runway.",
+              "prompt": "Build a briefing on FM.TO: flagship project, drilling, financings and cash runway.",
               "tools_triggered": ["lookup_company", "get_company_dossier"],
               "expected_behavior": "Looks up the ticker to a company id, fetches the company dossier and summarises the flagship project, recent drilling, financings and the latest cash position, citing record ids and stating when a field is not available."
             },
             {
-              "description": "Project economics filter",
-              "prompt": "Which lithium projects in Argentina have a published after-tax NPV?",
-              "tools_triggered": ["describe_filters", "resolve_options", "search_projects"],
-              "expected_behavior": "Resolves lithium and Argentina to filter values, searches projects with a non-null after-tax NPV, and returns a table of project, company, study stage, NPV and discount rate with record ids."
+              "description": "Guided screening of standout drill results for a commodity",
+              "prompt": "Use the connected Mining Data API to help me find and analyze standout drill results. Commodity focus: Copper. Explain the screening criteria, use the API's available data, and clearly state limitations.",
+              "tools_triggered": ["describe_filters", "resolve_options", "search_drill_results", "get_record"],
+              "expected_behavior": "Explains the screening criteria it will apply, resolves copper to the commodity code, searches drill results sorted by drill score, opens the top records for their intervals, and states what the dataset does not cover."
             },
             {
               "description": "Financings above a size threshold",
@@ -86,6 +86,7 @@
             }
           ]
         },
+        "demo_recording_url": "https://storage.googleapis.com/miningdataapi-public/chatgpt-plugin-demo.mp4",
         "commerce": false,
         "commerce_description": "No commerce. The plugin is read-only and never sells, starts a subscription or links to a checkout. Data tools require an existing paid Mining Data API plan; the only link it ever shows is the public pricing page for plan information."
       },
