@@ -3,7 +3,15 @@
   "mcpServers": {
     "miningdata": {
       "type": "streamable-http",
-      "url": "https://api.miningdataapi.com/mcp"
+      "url": "https://api.miningdataapi.com/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": { "mode": "dcr" }
+          }
+        }
+      }
     }
   }
 }

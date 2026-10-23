@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0
+
+- ChatGPT directory submission package: the portable manifest is now
+  `miningdataapi` (shown as "MiningDataAPI"), declares OAuth with dynamic
+  client registration in `mcp.json`, ships listing icons under `assets/`
+  and carries the review block OpenAI imports (five positive and three
+  negative test cases, release notes). `scripts/build-openai-package.sh`
+  builds the ZIP to upload. The Claude Code plugin id stays `miningdata`.
+
 ## 1.1.0
 
 - Portable Agent Plugins manifest for ChatGPT and Codex (`plugin.json`,

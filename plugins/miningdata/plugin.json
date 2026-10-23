@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "miningdata",
-  "version": "1.1.0",
-  "description": "Mining Data API: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings. Read-only, OAuth sign-in, requires an active Mining Data API subscription.",
+  "name": "miningdataapi",
+  "version": "1.2.0",
+  "description": "MiningDataAPI: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings of listed mining companies. Read-only, OAuth sign-in, requires an active Mining Data API subscription.",
   "author": {
     "name": "OreStocks",
     "email": "support@miningdataapi.com",
@@ -15,9 +15,9 @@
   "extensions": {
     "com.openai": {
       "interface": {
-        "displayName": "Mining Data API",
-        "shortDescription": "Mining intelligence from filings",
-        "longDescription": "Ask for the strongest recent drill intercepts, a briefing on a ticker, every placement above a price, or project economics such as NPV and IRR. Mining Data API answers from structured facts extracted from public filings of listed mining companies: drill results, financings, financial statements, projects, technical reports and spin-outs. Every answer can cite the disclosure it came from.\n\nAll tools are read-only. You sign in with your Mining Data API account; an active paid subscription is required for data tools (usage and plan information work on every plan).",
+        "displayName": "MiningDataAPI",
+        "shortDescription": "Mining data from filings",
+        "longDescription": "Ask for the strongest recent drill intercepts, a briefing on a ticker, every placement above a price, or project economics such as NPV and IRR. MiningDataAPI answers from structured facts extracted from public filings of listed mining companies: drill results, financings, financial statements, projects, technical reports and spin-outs. Every answer can cite the disclosure it came from.\n\nAll tools are read-only. You sign in with your Mining Data API account. Data tools are available on paid Mining Data API plans; usage and plan information work on every plan.",
         "developerName": "OreStocks",
         "category": "Productivity",
         "capabilities": ["Read"],
@@ -30,7 +30,67 @@
           "Build a briefing on ABRA.V: flagship project, drilling, financings and cash runway.",
           "Which lithium projects in Argentina have a published after-tax NPV?"
         ],
-        "brandColor": "#B9481F"
+        "brandColor": "#B9481F",
+        "brandColorDark": "#FF9157",
+        "logo": "./assets/logo.svg",
+        "logoDark": "./assets/logo-dark.svg",
+        "composerIcon": "./assets/composer-icon.svg",
+        "composerIconDark": "./assets/composer-icon-dark.svg"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Screen recent drill intercepts for a commodity",
+              "prompt": "Show me the best gold drill intercepts released in the last 30 days.",
+              "tools_triggered": ["describe_filters", "resolve_options", "search_drill_results"],
+              "expected_behavior": "Resolves gold to the commodity code, searches drill results released in the last 30 days sorted by drill score, and lists hole id, interval, length and grade per result with the record id and company for each row."
+            },
+            {
+              "description": "Company briefing from a ticker",
+              "prompt": "Build a briefing on ABRA.V: flagship project, drilling, financings and cash runway.",
+              "tools_triggered": ["lookup_company", "get_company_dossier"],
+              "expected_behavior": "Looks up the ticker to a company id, fetches the company dossier and summarises the flagship project, recent drilling, financings and the latest cash position, citing record ids and stating when a field is not available."
+            },
+            {
+              "description": "Project economics filter",
+              "prompt": "Which lithium projects in Argentina have a published after-tax NPV?",
+              "tools_triggered": ["describe_filters", "resolve_options", "search_projects"],
+              "expected_behavior": "Resolves lithium and Argentina to filter values, searches projects with a non-null after-tax NPV, and returns a table of project, company, study stage, NPV and discount rate with record ids."
+            },
+            {
+              "description": "Financings above a size threshold",
+              "prompt": "List copper company financings above 20 million dollars announced this year.",
+              "tools_triggered": ["describe_filters", "resolve_options", "search_financings"],
+              "expected_behavior": "Searches financings filtered by primary commodity copper, gross proceeds above 20 million and an announcement date in the current year, and reports instrument, gross proceeds, price per unit and the issuing company with record ids."
+            },
+            {
+              "description": "Plan and usage check works on every plan",
+              "prompt": "How much of my Mining Data API quota have I used this month?",
+              "tools_triggered": ["get_usage"],
+              "expected_behavior": "Calls get_usage and reports the current plan, the datasets it includes and the rows and requests consumed against the plan limits, without calling any data tool."
+            }
+          ],
+          "negative": [
+            {
+              "description": "General knowledge question unrelated to mining data",
+              "prompt": "What is the capital of Australia?"
+            },
+            {
+              "description": "Request to place a trade, which the plugin cannot and must not do",
+              "prompt": "Buy 500 shares of Rio Tinto for me right now."
+            },
+            {
+              "description": "Creative writing that mentions a metal but needs no data",
+              "prompt": "Write a short poem about a gold sunset."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "No commerce. The plugin is read-only and never sells, starts a subscription or links to a checkout. Data tools require an existing paid Mining Data API plan; the only link it ever shows is the public pricing page for plan information."
+      },
+      "publication": {
+        "release_notes": "First public directory release of MiningDataAPI for ChatGPT. Read-only access to drill results, financings, financial statements, projects, technical reports and spin-outs over OAuth."
       }
     }
   }
