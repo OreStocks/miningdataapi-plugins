@@ -27,7 +27,7 @@ plugin's version will say so explicitly.
 
 ## How to verify
 
-1. `claude plugin validate plugins/miningdata --strict` checks the manifest
+1. `claude plugin validate plugins/miningdataapi --strict` checks the manifest
    and that no file escapes the plugin directory.
 2. Read the three markdown files and `.mcp.json`; that is the whole plugin.
 3. Pin a tag: in your own marketplace entry use
@@ -52,7 +52,7 @@ to support@miningdataapi.com and we will quarantine the record.
 
 ## Revoking access
 
-- `claude mcp logout miningdata` clears the token on your machine.
+- `claude mcp logout miningdataapi` clears the token on your machine.
 - The Mining Data API dashboard, "AI plugins" section, lists connected apps
   and revokes them server-side (all sessions and refresh tokens end).
 - Uninstalling the plugin removes its stored credentials.

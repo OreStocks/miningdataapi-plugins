@@ -6,13 +6,13 @@ plugin: a pointer to the remote MCP server, a skill and two slash commands.
 
 | Plugin | What it does | Requires |
 |---|---|---|
-| [`miningdata`](plugins/miningdata) | Mining Data API in Claude Code: drill results, financings, financial statements, projects, technical reports, spin-outs | Active [Mining Data API](https://miningdataapi.com) subscription |
+| [`miningdataapi`](plugins/miningdataapi) | Mining Data API in Claude Code: drill results, financings, financial statements, projects, technical reports, spin-outs | Active [Mining Data API](https://miningdataapi.com) subscription |
 
 ## Install
 
 ```
 /plugin marketplace add OreStocks/miningdataapi-plugins
-/plugin install miningdata@orestocks
+/plugin install miningdataapi@orestocks
 /mcp
 ```
 
@@ -41,7 +41,7 @@ Security policy and reporting: [SECURITY.md](SECURITY.md).
 
 ```
 claude plugin validate . --strict
-claude plugin validate plugins/miningdata --strict
+claude plugin validate plugins/miningdataapi --strict
 ```
 
 Changes go through pull requests with a required review. See
