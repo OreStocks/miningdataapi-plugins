@@ -43,31 +43,31 @@
             {
               "description": "Screen recent drill intercepts for a commodity",
               "prompt": "Show me the best gold drill intercepts released in the last 30 days.",
-              "tools_triggered": ["describe_filters", "resolve_options", "search_drill_results"],
+              "tools_triggered": "describe_filters, resolve_options, search_drill_results",
               "expected_behavior": "Resolves gold to the commodity code, searches drill results released in the last 30 days sorted by drill score, and lists hole id, interval, length and grade per result with the record id and company for each row."
             },
             {
               "description": "Company briefing from a ticker",
               "prompt": "Build a briefing on FM.TO: flagship project, drilling, financings and cash runway.",
-              "tools_triggered": ["lookup_company", "get_company_dossier"],
+              "tools_triggered": "lookup_company, get_company_dossier",
               "expected_behavior": "Looks up the ticker to a company id, fetches the company dossier and summarises the flagship project, recent drilling, financings and the latest cash position, citing record ids and stating when a field is not available."
             },
             {
               "description": "Guided screening of standout drill results for a commodity",
               "prompt": "Use the connected Mining Data API to help me find and analyze standout drill results. Commodity focus: Copper. Explain the screening criteria, use the API's available data, and clearly state limitations.",
-              "tools_triggered": ["describe_filters", "resolve_options", "search_drill_results", "get_record"],
+              "tools_triggered": "describe_filters, resolve_options, search_drill_results, get_record",
               "expected_behavior": "Explains the screening criteria it will apply, resolves copper to the commodity code, searches drill results sorted by drill score, opens the top records for their intervals, and states what the dataset does not cover."
             },
             {
               "description": "Financings above a size threshold",
               "prompt": "List copper company financings above 20 million dollars announced this year.",
-              "tools_triggered": ["describe_filters", "resolve_options", "search_financings"],
+              "tools_triggered": "describe_filters, resolve_options, search_financings",
               "expected_behavior": "Searches financings filtered by primary commodity copper, gross proceeds above 20 million and an announcement date in the current year, and reports instrument, gross proceeds, price per unit and the issuing company with record ids."
             },
             {
               "description": "Plan and usage check works on every plan",
               "prompt": "How much of my Mining Data API quota have I used this month?",
-              "tools_triggered": ["get_usage"],
+              "tools_triggered": "get_usage",
               "expected_behavior": "Calls get_usage and reports the current plan, the datasets it includes and the rows and requests consumed against the plan limits, without calling any data tool."
             }
           ],
