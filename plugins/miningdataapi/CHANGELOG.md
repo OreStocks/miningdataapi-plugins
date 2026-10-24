@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+- Listing text no longer mentions subscriptions or paid plans (OpenAI
+  review finding); it leads with what the plugin does. `tools_triggered`
+  in the review block is a string, as the Codex overlay requires.
+
 ## 1.2.0
 
 - ChatGPT directory submission package: the portable manifest is now
