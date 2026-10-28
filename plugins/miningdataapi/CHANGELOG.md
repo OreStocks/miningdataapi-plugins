@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.2
+
+- Citations link to the source: every record now carries `source_url`, the
+  orestocks.com page of the filing or press release it was extracted from.
+  The skill and both commands ask for the column and write record ids as
+  links to it, so a reader can open the document (filings ask for a free
+  orestocks.com sign-in) instead of trusting the summary.
+
 ## 1.2.1
 
 - Listing text no longer mentions subscriptions or paid plans (OpenAI
