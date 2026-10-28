@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "miningdataapi",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Mining Data API: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings of listed mining companies. Read-only; sign in with your Mining Data API account.",
   "author": {
     "name": "OreStocks",

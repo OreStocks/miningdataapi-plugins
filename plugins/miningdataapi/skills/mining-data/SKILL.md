@@ -8,7 +8,8 @@ allowed-tools: mcp__plugin_miningdataapi_miningdataapi__*
 
 The `miningdataapi` MCP server exposes the OreStocks dataset: structured facts
 extracted from public filings of listed mining companies. Everything is
-read-only. Every record carries an id and a source filing; cite ids.
+read-only. Every record carries an id and `source_url`, the orestocks.com
+page of the filing or release it was extracted from; cite both.
 
 ## Trust boundaries
 
@@ -51,6 +52,7 @@ If the server answers 401 or the tools are missing, run `/mcp`, choose
 4. `search_<resource>` with `filters`, `sort`, `columns`, `limit`. Use
    `company_id` to scope to one company. Start with a small `limit` (10 to
    25) and widen only when needed; plan limits cap page size and rows per day.
+   When you name `columns`, include `source_url` so every row keeps its link.
 5. `get_record(resource, id)` for the full record with detail-only sections
    (drill holes and intervals, financing tranches, estimates).
 6. `get_company_dossier(id)` or `get_project_dossier(id)` for a one-call
@@ -79,7 +81,12 @@ Dates are `YYYY-MM-DD`. Grades and lengths use the units listed by
   width if known. Flag when only a headline interval is available.
 - For financings state instrument, gross proceeds, price and the dilution
   implied by the share count when both are present.
-- Cite record ids (and the filing) for every factual claim.
+- Cite the record id for every factual claim and link it: write the id as a
+  markdown link to the record's `source_url` (for example
+  `[dr 48213](https://orestocks.com/source/NFG.V/5051565727733567)`), or list
+  the ids with their links under the answer. The link opens the press release
+  or filing on orestocks.com; filings ask for a free sign-in to read the PDF.
+  Never invent a URL: use `source_url` as served, and say when it is null.
 
 ## Slash commands in this plugin
 
