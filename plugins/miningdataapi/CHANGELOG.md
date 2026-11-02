@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- The marketplace is now `miningdataapi`, so the plugin installs as `miningdataapi@miningdataapi`. If you added the old `orestocks` marketplace, remove it and add it again.
+- The Claude Code listing names the datasets on sale and says every plan can connect.
+
 ## 1.2.3
 
 - `screen-drills` sorts by release date and ranks on the reported intercepts: the API no longer serves a drill score.
