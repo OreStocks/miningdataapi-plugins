@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.3
+
+- `screen-drills` sorts by release date and ranks on the reported intercepts: the API no longer serves a drill score.
+
 ## 1.2.2
 
 - Citations link to the source: every record now carries `source_url`, the

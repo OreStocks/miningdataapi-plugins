@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "miningdataapi",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Mining Data API: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings of listed mining companies. Read-only; sign in with your Mining Data API account.",
   "author": {
     "name": "OreStocks",
@@ -44,7 +44,7 @@
               "description": "Screen recent drill intercepts for a commodity",
               "prompt": "Show me the best gold drill intercepts released in the last 30 days.",
               "tools_triggered": "describe_filters, resolve_options, search_drill_results",
-              "expected_behavior": "Resolves gold to the commodity code, searches drill results released in the last 30 days sorted by drill score, and lists hole id, interval, length and grade per result with the record id and company for each row."
+              "expected_behavior": "Resolves gold to the commodity code, searches drill results released in the last 30 days by release date, ranks them on the reported intercepts, and lists hole id, interval, length and grade per result with the record id and company for each row."
             },
             {
               "description": "Company briefing from a ticker",
@@ -56,7 +56,7 @@
               "description": "Guided screening of standout drill results for a commodity",
               "prompt": "Use the connected Mining Data API to help me find and analyze standout drill results. Commodity focus: Copper. Explain the screening criteria, use the API's available data, and clearly state limitations.",
               "tools_triggered": "describe_filters, resolve_options, search_drill_results, get_record",
-              "expected_behavior": "Explains the screening criteria it will apply, resolves copper to the commodity code, searches drill results sorted by drill score, opens the top records for their intervals, and states what the dataset does not cover."
+              "expected_behavior": "Explains the screening criteria it will apply, resolves copper to the commodity code, searches drill results by release date, ranks them on the reported intercepts, opens the top records for their intervals, and states what the dataset does not cover."
             },
             {
               "description": "Financings above a size threshold",
