@@ -1,24 +1,24 @@
-# OreStocks plugins for Claude Code
+# Mining Data API plugin for Claude Code
 
-Public home of the Claude Code marketplace `orestocks`. The Mining Data API
+Public home of the Claude Code marketplace `miningdataapi`. The Mining Data API
 itself is closed source; this repository holds only the thin client-side
 plugin: a pointer to the remote MCP server, a skill and two slash commands.
 
 | Plugin | What it does | Requires |
 |---|---|---|
-| [`miningdataapi`](plugins/miningdataapi) | Mining Data API in Claude Code: drill results, financings, financial statements, projects, technical reports, spin-outs | Active [Mining Data API](https://miningdataapi.com) subscription |
+| [`miningdataapi`](plugins/miningdataapi) | Mining Data API in Claude Code: drill results and financial statements | A Mining Data API account on any plan |
 
 ## Install
 
 ```
 /plugin marketplace add OreStocks/miningdataapi-plugins
-/plugin install miningdataapi@orestocks
+/plugin install miningdataapi@miningdataapi
 /mcp
 ```
 
 The same folder carries the portable Agent Plugins manifest OpenAI reads
 (`plugin.json`, `mcp.json`, `skills/*/agents/openai.yaml`), which is what
-OreStocks submits to the ChatGPT plugin directory. Claude (web, desktop,
+we submit to the ChatGPT plugin directory. Claude (web, desktop,
 mobile) and ChatGPT users do not need this repository: add
 `https://api.miningdataapi.com/mcp` as a connector or MCP app and sign in.
 Steps at <https://miningdataapi.com/plugins>.

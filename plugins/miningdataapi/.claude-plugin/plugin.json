@@ -2,14 +2,19 @@
   "$schema": "https://code.claude.com/schemas/plugin.json",
   "name": "miningdataapi",
   "version": "1.2.3",
-  "description": "Mining Data API for Claude Code: drill results, financings, financial statements, projects, technical reports and spin-outs extracted from public filings. Read-only, OAuth sign-in, requires an active Mining Data API subscription.",
+  "description": "Mining Data API for Claude Code: drill results and financial statements extracted from the public filings of listed mining companies. Read-only, OAuth sign-in. Every plan can connect; what a tool returns follows the plan.",
   "author": {
-    "name": "OreStocks",
+    "name": "Mining Data API",
     "email": "support@miningdataapi.com",
     "url": "https://miningdataapi.com"
   },
   "homepage": "https://miningdataapi.com/plugins",
-  "repository": "https://github.com/OreStocks/miningdataapi-plugins",
   "license": "MIT",
-  "keywords": ["mining", "drill-results", "exploration", "financings", "mcp", "orestocks"]
+  "keywords": [
+    "mining",
+    "drill-results",
+    "financial-statements",
+    "exploration",
+    "mcp"
+  ]
 }

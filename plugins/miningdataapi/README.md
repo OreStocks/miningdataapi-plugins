@@ -7,17 +7,16 @@ Both point at the same MCP server (`https://api.miningdataapi.com/mcp`) and
 share the `mining-data` skill. It ships no hooks, no agents, no scripts and
 no secrets.
 
-Requires an active Mining Data API subscription. Free accounts can install
-the plugin and list its tools, but every data tool returns
-`subscription_required` with a link to the public pricing page until the
-organisation is on a paid plan. The plugin never starts a purchase itself.
+Works on every plan, and what a tool returns follows the plan. The free plan
+serves a fixed sample month, and a result says plainly when something needs
+another plan. The plugin never starts a purchase itself.
 
 
 ## Install
 
 ```
 /plugin marketplace add OreStocks/miningdataapi-plugins
-/plugin install miningdataapi@orestocks
+/plugin install miningdataapi@miningdataapi
 /mcp                       # pick "miningdataapi" and sign in in the browser
 ```
 
@@ -40,7 +39,7 @@ ChatGPT does not install from this repository. Two paths:
 - Personal use: ChatGPT → Settings → Security and login → Developer mode,
   then Plugins → Add → Create MCP App with the server URL and OAuth. The
   server itself is the plugin; the skill here is optional context.
-- Public listing: OreStocks uploads the portable package built by
+- Public listing: we upload the portable package built by
   `scripts/build-openai-package.sh` to the OpenAI plugin portal
   (platform.openai.com/plugins → Upload new or existing plugin → With MCP).
 
