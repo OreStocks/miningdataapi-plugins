@@ -68,8 +68,9 @@ In the portal, outside the ZIP:
    `OPENAI_APPS_CHALLENGE` variable on the API's `prod` GitHub environment,
    redeploy, and confirm `https://api.miningdataapi.com/.well-known/openai-apps-challenge`
    returns it as plain text.
-5. Reviewer credentials under Review details: a dedicated prod account on a
-   paid plan with sample data, signing in with email and password only (no
+5. Reviewer credentials under Review details: a dedicated prod account on the
+   Business plan (one review test case is a commodity screen, which lower
+   plans answer with a count), signing in with email and password only (no
    Google sign-in, MFA or magic link). Keep it alive for later reviews.
 6. Submit for review and accept the policy attestations. After approval,
    press Publish plugin.
