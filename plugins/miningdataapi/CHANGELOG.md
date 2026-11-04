@@ -1,7 +1,20 @@
 # Changelog
 
-## Unreleased
+## 1.3.0
 
+- The listing, the skill and both commands describe what is sold at launch: drill
+  results and financial statements. Financings, projects and technical reports
+  are in early access on request; their tools answer `dataset_not_in_plan`.
+- Plan-aware screening: `screen-drills` reads `beyond` before going on. Below
+  Business the commodity filter is a screen (count only), so the command screens
+  the headline flow by hand and says so; on the free plan it moves the window
+  into the April 2026 sample.
+- The skill names the error codes the server actually raises
+  (`dataset_not_in_plan`, `plan_required`, `budget_exhausted`,
+  `company_cap_reached`, `daily_records_cap`); `subscription_required` never was one.
+- Citations link to `miningdataapi.com/source/...` pages, and the texts no longer
+  name OreStocks. The OpenAI package carries the same scope, new default prompts
+  and review test cases (the reviewer account should be on Business).
 - The marketplace is now `miningdataapi`, so the plugin installs as `miningdataapi@miningdataapi`. If you added the old `orestocks` marketplace, remove it and add it again.
 - The Claude Code listing names the datasets on sale and says every plan can connect.
 
