@@ -19,8 +19,8 @@ Steps:
 3. Call `search_drill_results` with filters `primary_commodity eq <code>` (or `in` for several codes) and `release_date gte <today minus the window>`, `sort` `-release_date`, `limit` 25, and `columns` `id,symbol,company_name,release_date,best_intercept,source_url`.
 4. Read the result before going on:
    - Rows came back: continue with step 5.
-   - No rows and `beyond.universe` is present: the commodity filter is a screen across companies, which the Business plan serves. Say so, with the match count, and instead call `search_drill_results` without the commodity filter (same date filter, sort and columns, `limit` 25) and keep the rows whose `best_intercept` names the commodity (for example `g/t Au`, `% Cu`, `% Li2O`). Say that you screened the headlines by hand.
-   - No rows and `beyond.live` is present: the plan serves the fixed April 2026 sample. Rerun step 3 with `release_date gte 2026-04-01` and `release_date lte 2026-04-30` and say which month you are showing.
+   - No rows and `beyond.universe` is present: the commodity filter is a screen across companies that this account does not include. Say so, with the match count, and instead call `search_drill_results` without the commodity filter (same date filter, sort and columns, `limit` 25) and keep the rows whose `best_intercept` names the commodity (for example `g/t Au`, `% Cu`, `% Li2O`). Say that you screened the headlines by hand.
+   - No rows and `beyond.live` is present: the account serves the fixed April 2026 sample. Rerun step 3 with `release_date gte 2026-04-01` and `release_date lte 2026-04-30` and say which month you are showing.
 5. Pick the five strongest from `best_intercept`, comparing length and grade yourself, and call `get_record` for each to read the intervals.
 6. Summarise the best intercepts: hole, from, to, length, grade, true width if known, project, company, and whether it looks discovery-like. Cite the disclosure id for every claim as a link to its `source_url`, and state the data date.
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.1
+
+- The skill and `company-brief` no longer name financings, projects or technical reports: the server announces only the datasets on sale, and other datasets open on request.
+- The OpenAI listing no longer names plans or pricing (review finding: no pricing or subscription offers in the description). The commerce note, the release notes and the screening test case describe behaviour without naming a plan.
+
 ## 1.3.0
 
 - The listing, the skill and both commands describe what is sold at launch: drill
