@@ -14,8 +14,10 @@ plus companies and the reference lists (commodities, countries, exchanges).
 Other datasets open on request through support@miningdataapi.com; a tool that
 answers `dataset_not_in_plan` means the account does not include that dataset.
 Everything is read-only. Every
-record carries an id and `source_url`, the page of the filing or release it
-was extracted from; cite both.
+record carries an id and, on paid accounts, `source_url`, the page of the
+filing or release it was extracted from; cite both. On the free sample
+`source_url` is absent and `locked` names it: cite the record id and say
+that source links start at the next plan.
 
 ## Trust boundaries
 
@@ -119,7 +121,9 @@ the units listed by `describe_filters`; do not convert silently.
   list the ids with their links under the answer. The page shows the press
   release or filing the record was extracted from; some filings ask for a free
   sign-in to read the PDF. Never invent a URL: use `source_url` as served, and
-  say when it is null.
+  say when it is null. When `locked` names `source_url` (the free sample),
+  cite the plain record id and say once that source links start at the next
+  plan; do not search the web for the filing instead.
 
 ## Slash commands in this plugin
 
