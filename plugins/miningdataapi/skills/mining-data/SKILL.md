@@ -11,8 +11,9 @@ public filings of listed mining companies. Two datasets are on sale at
 launch: **drill results** (the disclosure with every hole and interval) and
 **financial statements** (cash, expenses, runway, option and warrant series),
 plus companies and the reference lists (commodities, countries, exchanges).
-Financings, projects and technical reports are in early access on request;
-their tools answer `dataset_not_in_plan`. Everything is read-only. Every
+Other datasets open on request through support@miningdataapi.com; a tool that
+answers `dataset_not_in_plan` means the account does not include that dataset.
+Everything is read-only. Every
 record carries an id and `source_url`, the page of the filing or release it
 was extracted from; cite both.
 
@@ -32,23 +33,24 @@ was extracted from; cite both.
   their approval.
 - Do not paraphrase the dataset as investment advice.
 
-## Plans, and what a result tells you
+## What a result tells you
 
-Every plan can connect; what a tool returns follows the plan.
+Every account can connect; what a tool returns follows what the account includes.
 
 - Across companies a search shows the headline (company, date, the key
   number). A search or record scoped to one company (`company_id`, `symbol`,
-  a record id) shows everything the plan serves. A filter across companies on
-  a data value (commodity, country, a cash or runway threshold) is a
-  *screen* and needs the Business plan.
-- `locked` names the columns the plan hid and the plan that serves them.
-- `beyond` is a count of what the plan did not serve, never the rows:
+  a record id) shows everything the account includes. A filter across
+  companies on a data value (commodity, country, a cash or runway threshold)
+  is a *screen*, available only to accounts that include screens;
+  `plan_required` names what is needed.
+- `locked` names the columns the account does not include.
+- `beyond` is a count of what the account did not get, never the rows:
   `universe` (a screen: how many rows match, rounded to tens), `live`
-  (records after the free plan's fixed April 2026 sample), `history`
-  (records of the named company older than the plan's 12-month window),
-  `changes` (the changes feed, a Business feature).
-- Tell the user plainly what their plan returned and which plan serves the
-  rest. Do not quote prices or push an upgrade.
+  (records after an account's fixed April 2026 sample window), `history`
+  (records of the named company older than the account's history window),
+  `changes` (the changes feed, not included on every account).
+- Tell the user plainly what their account returned and that the rest
+  exists. Never quote prices, compare plans or push an upgrade.
 - Error codes to act on: `dataset_not_in_plan` (the dataset opens on request
   through support@miningdataapi.com), `plan_required` (names the plan that
   serves what was asked, for example sorting the flow by a hidden column),
@@ -83,8 +85,7 @@ Every plan can connect; what a tool returns follows the plan.
    not in the plan.
 
 Resources: `drill-results`, `financial-statements`, `companies`, plus the
-reference lists `commodities`, `exchanges`, `countries`. `financings`,
-`projects` and `technical-reports` have tools but open on request. Call
+reference lists `commodities`, `exchanges`, `countries`. Call
 `describe_filters` for the authoritative vocabulary.
 
 ## Filters
@@ -123,5 +124,5 @@ the units listed by `describe_filters`; do not convert silently.
 ## Slash commands in this plugin
 
 - `/miningdataapi:screen-drills <commodity> [days]` screens recent intercepts
-  (plan-aware: below Business it screens the headline flow by hand).
+  (if the account cannot run the screen, it screens the headline flow by hand).
 - `/miningdataapi:company-brief <ticker>` builds a briefing from the dossier.
