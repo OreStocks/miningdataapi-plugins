@@ -18,10 +18,11 @@ plugin: a pointer to the remote MCP server, a skill and two slash commands.
 
 The same folder carries the portable Agent Plugins manifest OpenAI reads
 (`plugin.json`, `mcp.json`, `skills/*/agents/openai.yaml`), which is what
-we submit to the ChatGPT plugin directory. Claude (web, desktop,
-mobile) and ChatGPT users do not need this repository: add
-`https://api.miningdataapi.com/mcp` as a connector or MCP app and sign in.
-Steps at <https://miningdataapi.com/plugins>.
+is listed in the ChatGPT plugin directory as
+<https://chatgpt.com/plugins/plugin_asdk_app_6adb8169bdec8191b6c394a846b084b5>.
+ChatGPT users install it there; Claude (web, desktop, mobile) users add
+`https://api.miningdataapi.com/mcp` as a custom connector and sign in.
+Neither needs this repository. Steps at <https://miningdataapi.com/plugins>.
 
 ## Trust
 
