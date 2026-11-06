@@ -14,7 +14,7 @@
       "name": "miningdataapi",
       "source": "./plugins/miningdataapi",
       "description": "Query the Mining Data API from Claude Code over OAuth: screen drill results, build company briefings, read financial statements. Read-only. Every plan can connect; what a tool returns follows the plan.",
-      "version": "1.3.1",
+      "version": "1.3.2",
       "author": {
         "name": "Mining Data API",
         "email": "support@miningdataapi.com"

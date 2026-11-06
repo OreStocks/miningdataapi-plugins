@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2
+
+- The free sample serves records without `source_url` (the API names it in `locked`); the skill and `company-brief` cite the plain record id there and say that source links start at the next plan.
+
 ## 1.3.1
 
 - The skill and `company-brief` no longer name financings, projects or technical reports: the server announces only the datasets on sale, and other datasets open on request.
