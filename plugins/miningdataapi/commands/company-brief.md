@@ -1,7 +1,6 @@
 ---
 description: Build a concise briefing for a mining company from its Mining Data API dossier
 argument-hint: <ticker or company name>
-allowed-tools: mcp__plugin_miningdataapi_miningdataapi__lookup_company, mcp__plugin_miningdataapi_miningdataapi__get_company_dossier
 ---
 
 Build a company briefing with the Mining Data API MCP tools.

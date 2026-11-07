@@ -9,8 +9,10 @@ wording in the skill and commands.
   dependencies will be accepted; see [SECURITY.md](SECURITY.md).
 - `.mcp.json` points at `https://api.miningdataapi.com/mcp` and nothing
   else. No headers, no environment expansion.
-- Commands and skills list the MCP tools they need in `allowed-tools`; do
-  not widen to `*` or to non-MCP tools.
+- No `allowed-tools` in commands or skills, and only Markdown, JSON and YAML
+  in the plugin folder. The Claude Directory refuses tool pre-approvals beyond
+  Read, Grep, Glob and LS, and other file types, from organizations Anthropic
+  has not verified. The ChatGPT package's icons live in `openai/assets/`.
 - Bump `version` in `plugins/miningdataapi/.claude-plugin/plugin.json` and
   `plugins/miningdataapi/CHANGELOG.md` for every user-visible change.
 

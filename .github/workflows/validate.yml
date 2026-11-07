@@ -33,13 +33,18 @@ jobs:
           for forbidden in hooks agents scripts bin; do
             if [ -e "$forbidden" ]; then echo "::error::$forbidden/ is not allowed in this plugin"; exit 1; fi
           done
-          if find . -type f ! -name '*.md' ! -name '*.json' ! -name '*.yaml' ! -path './assets/*' | grep -q .; then
-            echo "::error::only .md, .json and .yaml files are allowed outside assets/"; find . -type f ! -name '*.md' ! -name '*.json' ! -name '*.yaml' ! -path './assets/*'; exit 1
+          # The Claude Directory refuses other file types, and tool pre-approvals beyond
+          # Read, Grep, Glob and LS, from organizations Anthropic has not verified.
+          if find . -type f ! -name '*.md' ! -name '*.json' ! -name '*.yaml' | grep -q .; then
+            echo "::error::only .md, .json and .yaml files are allowed in the plugin folder"; find . -type f ! -name '*.md' ! -name '*.json' ! -name '*.yaml'; exit 1
           fi
-          if find assets -type f ! -name '*.svg' ! -name '*.png' | grep -q .; then
-            echo "::error::assets/ may only hold .svg and .png icons"; find assets -type f ! -name '*.svg' ! -name '*.png'; exit 1
+          if grep -rInE '^(allowed-tools|allowedTools):' . ; then
+            echo "::error::no allowed-tools: the directory refuses them from unverified organizations"; exit 1
           fi
-          if grep -rIlE '<script|onload=|javascript:' assets; then
+          if find ../../openai/assets -type f ! -name '*.svg' ! -name '*.png' | grep -q .; then
+            echo "::error::openai/assets/ may only hold .svg and .png icons"; find ../../openai/assets -type f ! -name '*.svg' ! -name '*.png'; exit 1
+          fi
+          if grep -rIlE '<script|onload=|javascript:' ../../openai/assets; then
             echo "::error::scripts are not allowed inside icon files"; exit 1
           fi
           python3 - <<'PY'
@@ -76,7 +81,7 @@ jobs:
               assert iface[url_key].startswith("https://miningdataapi.com"), f"{url_key} must point at miningdataapi.com"
           for icon in ("logo", "logoDark", "composerIcon", "composerIconDark"):
               path = iface[icon]
-              assert path.startswith("./assets/") and os.path.isfile(path), f"{icon} must be a ./assets/ file that exists"
+              assert path.startswith("./assets/") and os.path.isfile(os.path.join("../../openai", path)), f"{icon} must be ./assets/<file> with the file in openai/assets/"
           prompts = iface["defaultPrompt"]
           assert 1 <= len(prompts) <= 3 and len(set(prompts)) == len(prompts) and all(len(p) <= 128 for p in prompts), "up to three unique default prompts of 128 chars"
           for colour in ("brandColor", "brandColorDark"):

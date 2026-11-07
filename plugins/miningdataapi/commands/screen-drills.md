@@ -1,7 +1,6 @@
 ---
 description: Screen the strongest recent drill intercepts for a commodity using the Mining Data API
 argument-hint: <commodity> [days]
-allowed-tools: mcp__plugin_miningdataapi_miningdataapi__describe_filters, mcp__plugin_miningdataapi_miningdataapi__resolve_options, mcp__plugin_miningdataapi_miningdataapi__search_drill_results, mcp__plugin_miningdataapi_miningdataapi__get_record
 ---
 
 Screen recent drill results with the Mining Data API MCP tools.
