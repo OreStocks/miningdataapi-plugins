@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.5
+
+- Directory links name only pages that exist for what the field says: the homepage is miningdataapi.com, and `supportUrl` and `documentationUrl` are removed until there is a support page and plugin documentation.
+
 ## 1.3.4
 
 - The Claude Directory listing reads its name and links from the Claude Code manifest: it now sets `displayName` (Mining Data API), `supportUrl`, `documentationUrl`, `termsOfServiceUrl` and `repository`, and the description names Claude rather than Claude Code, since the directory lists it in every Claude app.
