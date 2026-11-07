@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.5
+
+- Directory links: the homepage is miningdataapi.com, documentation is the plugin setup page (/plugins) rather than the REST reference, and support is support@miningdataapi.com, since the site has no support page.
+
 ## 1.3.4
 
 - The Claude Directory listing reads its name and links from the Claude Code manifest: it now sets `displayName` (Mining Data API), `supportUrl`, `documentationUrl`, `termsOfServiceUrl` and `repository`, and the description names Claude rather than Claude Code, since the directory lists it in every Claude app.
