@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.3
+
+- The Claude Code manifest declares `privacyPolicyUrl` (https://miningdataapi.com/privacy), which the Claude Directory requires of plugins that connect to a remote MCP server.
+
 ## 1.3.2
 
 - The free sample serves records without `source_url` (the API names it in `locked`); the skill and `company-brief` cite the plain record id there and say that source links start at the next plan.
