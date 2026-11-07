@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.6
+
+- The plugin README is the Claude Directory listing description: what you can ask, what the plugin contains, sign-in, what it sends and keeps, troubleshooting and support. The ChatGPT submission notes and the file layout moved to the repository README.
+- `supportUrl` is https://miningdataapi.com/support, the support channel the Directory Policy asks for. The directory does not accept a mailto link there.
+
 ## 1.3.5
 
 - Directory links name only pages that exist for what the field says: the homepage is miningdataapi.com, and `supportUrl` and `documentationUrl` are removed until there is a support page and plugin documentation.
