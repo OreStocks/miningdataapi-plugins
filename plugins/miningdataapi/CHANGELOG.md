@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.7
+
+- The Claude Directory refused 1.3.6: organizations Anthropic has not verified may not pre-approve tools beyond Read, Grep, Glob and LS, or ship files other than Markdown, text, JSON, YAML and PNG, JPEG, GIF, WebP or ICO images. The skill and both commands no longer carry `allowed-tools`, so Claude Code asks before a Mining Data API tool's first use.
+- The ChatGPT package's SVG icons moved out of the plugin folder to `openai/assets/`. The build script still packages them as `assets/`, so the ZIP carries the same icons; only the skill's frontmatter line and the version differ.
+
 ## 1.3.6
 
 - The plugin README is the Claude Directory listing description: what you can ask, what the plugin contains, sign-in, what it sends and keeps, troubleshooting and support. The ChatGPT submission notes and the file layout moved to the repository README.

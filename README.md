@@ -55,7 +55,8 @@ ChatGPT does not install from this repository. Two paths:
 ### Submission checklist
 
 What the package already carries (`plugin.json` → `extensions.com.openai`):
-listing text and URLs, icons in `assets/`, brand colours, the five positive
+listing text and URLs, icons (in `openai/assets/` at the repository root,
+packaged as `assets/`), brand colours, the five positive
 and three negative review test cases, `commerce: false`, release notes.
 `mcp.json` declares OAuth with dynamic client registration; the server
 advertises its registration endpoint through discovery.
@@ -100,11 +101,15 @@ Changes go through pull requests with a required review. See
 
 ### Layout of `plugins/miningdataapi/`
 
+The ChatGPT package's icons live in `openai/assets/` at the repository root, outside the
+plugin folder: the Claude Directory refuses SVG files from organizations Anthropic has not
+verified. `scripts/build-openai-package.sh` adds them to the ZIP as `assets/`.
+
+
 ```
 README.md                            Claude Directory listing description
 plugin.json                          portable manifest (OpenAI reads this; listing + review metadata under extensions.com.openai)
 mcp.json                             portable remote MCP server (streamable-http, https, OAuth via dynamic client registration)
-assets/*.svg                         directory listing icons (logo, composer icon, light and dark)
 .claude-plugin/plugin.json           Claude Code manifest
 .mcp.json                            Claude Code remote MCP server entry
 skills/mining-data/SKILL.md          how to query the dataset well (shared)

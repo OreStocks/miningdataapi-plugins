@@ -1,7 +1,6 @@
 ---
 name: mining-data
 description: Use when the user asks about listed mining or exploration companies, their drill results (intercepts, holes, assays), or their financial statements (cash, expenses, runway, options and warrants). Drives the Mining Data API MCP tools (search_*, get_record, dossiers) with the right filter vocabulary, plan awareness and citation discipline.
-allowed-tools: mcp__plugin_miningdataapi_miningdataapi__*
 ---
 
 # Mining Data API
