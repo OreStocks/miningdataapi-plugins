@@ -1,107 +1,74 @@
-# Mining Data API plugin for Claude Code and ChatGPT
+# Mining Data API
 
-One package, two layouts: the Claude Code manifest (`.claude-plugin/`,
-`.mcp.json`, `commands/`) and the portable Agent Plugins manifest OpenAI
-reads (`plugin.json`, `mcp.json`, `skills/*/agents/openai.yaml`, `assets/`).
-Both point at the same MCP server (`https://api.miningdataapi.com/mcp`) and
-share the `mining-data` skill. It ships no hooks, no agents, no scripts and
-no secrets.
+Structured facts from the public filings of listed mining companies, inside
+Claude: drill results with every hole and interval, and financial statements
+with cash, expenses, runway, options and warrants. Claude cites the record
+each fact comes from.
 
-Works on every plan, and what a tool returns follows the plan. The free plan
-serves a fixed sample month, and a result says plainly when something needs
-another plan. The plugin never starts a purchase itself.
+## What you can ask
 
+- Show me ABRA.TO's latest drill results with holes, intervals and grades.
+- What does ABRA.TO's latest financial statement show: cash, expenses, runway, options and warrants?
+- Build a briefing on ABRA.TO: drilling, cash and runway, options and warrants.
+- Which drill results came out this week, and what was the best intercept in each?
+- How much of my Mining Data API quota have I used this month?
 
-## Install
+## What the plugin contains
 
-```
-/plugin marketplace add OreStocks/miningdataapi-plugins
-/plugin install miningdataapi@miningdataapi
-/mcp                       # pick "miningdataapi" and sign in in the browser
-```
+- A remote MCP server at `https://api.miningdataapi.com/mcp`. Every tool is
+  read-only.
+- The `mining-data` skill, which teaches Claude the dataset's filters, what a
+  result says about your plan, and how to cite records.
+- Two commands for Claude Code: `/miningdataapi:company-brief <ticker>` and
+  `/miningdataapi:screen-drills <commodity> [days]`.
 
-The sign-in runs through the Mining Data API portal (OAuth 2.1). No API key
-is needed; Claude Code keeps the token in its credential store.
-`claude mcp logout miningdataapi` forgets it, and uninstalling the plugin
-removes it too.
+It contains no hooks, agents, scripts or credentials.
 
-To use an API key instead (CI, shared machines), skip the plugin and run:
+## Sign in
 
-```
-claude mcp add --transport http miningdataapi https://api.miningdataapi.com/mcp \
-  --header "Authorization: Bearer os_live_…"
-```
+You sign in with your Mining Data API account in the browser, through OAuth.
+No API key is needed. In Claude Code, run `/mcp`, choose `miningdataapi` and
+sign in; `claude mcp logout miningdataapi` forgets the token.
 
-## ChatGPT
+Every plan can connect, and what a tool returns follows the plan. The free
+plan answers from a fixed sample month, April 2026. When something needs a
+different plan, the result says so.
 
-ChatGPT does not install from this repository. Two paths:
+## What it sends and keeps
 
-- Personal use: ChatGPT → Settings → Security and login → Developer mode,
-  then Plugins → Add → Create MCP App with the server URL and OAuth. The
-  server itself is the plugin; the skill here is optional context.
-- Public listing: we upload the portable package built by
-  `scripts/build-openai-package.sh` to the OpenAI plugin portal
-  (platform.openai.com/plugins → Upload new or existing plugin → With MCP).
+The plugin runs nothing on your machine. Claude sends the server only the tool
+requests it composes: search filters, record ids and tickers. Your
+conversations, prompts and files are not sent.
 
-### Submission checklist
+The server does not store the requests themselves. It keeps a usage record of
+each call: the account, the tool, the time and the rows returned, for limits,
+billing and misuse detection. To apply monthly company limits, it notes which
+companies your organization opens each month. The
+[privacy policy](https://miningdataapi.com/privacy) describes what is kept and
+for how long.
 
-What the package already carries (`plugin.json` → `extensions.com.openai`):
-listing text and URLs, icons in `assets/`, brand colours, the five positive
-and three negative review test cases, `commerce: false`, release notes.
-`mcp.json` declares OAuth with dynamic client registration; the server
-advertises its registration endpoint through discovery.
+## Troubleshooting
 
-Before building the ZIP:
+- **The tools are missing, or the server answers 401.** In Claude Code, run
+  `/mcp`, choose `miningdataapi` and sign in again.
+- **`dataset_not_in_plan`.** Your account does not include that dataset.
+  Datasets in early access open on request through support@miningdataapi.com.
+- **`plan_required`.** The request needs a different plan, and the error names
+  it.
+- **`budget_exhausted`, `company_cap_reached` or `daily_records_cap`.** A limit
+  of your plan is reached. Ask how much of your quota you have used to see what
+  is left and when it resets.
+- **To revoke access**, use the AI plugins section of the Mining Data API
+  portal, or remove the plugin.
 
-1. Record the reviewer walkthrough video and set
-   `extensions.com.openai.review.demo_recording_url` in `plugin.json`
-   (the build script refuses to package without it).
-2. Bump `version` in both `plugin.json` and `.claude-plugin/plugin.json`
-   and add a `CHANGELOG.md` entry; the portal rejects re-uploads with the
-   same version.
+## Support
 
-In the portal, outside the ZIP:
+- Help and security reports: support@miningdataapi.com. Please do not post
+  exploitable details publicly.
+- [Privacy policy](https://miningdataapi.com/privacy)
+- [Terms of service](https://miningdataapi.com/terms)
 
-3. Verified developer or business identity in the OpenAI organization
-   settings (the directory shows it as the developer name).
-4. Domain verification: copy the token from the MCPs tab, set it as the
-   `OPENAI_APPS_CHALLENGE` variable on the API's `prod` GitHub environment,
-   redeploy, and confirm `https://api.miningdataapi.com/.well-known/openai-apps-challenge`
-   returns it as plain text.
-5. Reviewer credentials under Review details: a dedicated prod account on the
-   Business plan (one review test case is a commodity screen, which lower
-   plans answer with a count), signing in with email and password only (no
-   Google sign-in, MFA or magic link). Keep it alive for later reviews.
-6. Submit for review and accept the policy attestations. After approval,
-   press Publish plugin.
+## License
 
-Tool changes on the server need no new package: OpenAI rescans daily, or
-press Rescan under Issues after a deploy. The MCP URL cannot change after
-submission without contacting OpenAI support.
-
-## Commands (Claude Code)
-
-- `/miningdataapi:screen-drills gold 30`
-- `/miningdataapi:company-brief RIO.AX`
-
-Both commands are limited to the Mining Data API tools (`allowed-tools`);
-they cannot run shell commands or touch files.
-
-## What it can access
-
-Read-only mining data your plan includes. The tools cannot write anything,
-and nothing on your machine is sent to the server except the tool arguments
-Claude composes (filters, ids, tickers). See [SECURITY.md](../../SECURITY.md).
-
-## Layout
-
-```
-plugin.json                          portable manifest (OpenAI reads this; listing + review metadata under extensions.com.openai)
-mcp.json                             portable remote MCP server (streamable-http, https, OAuth via dynamic client registration)
-assets/*.svg                         directory listing icons (logo, composer icon, light and dark)
-.claude-plugin/plugin.json           Claude Code manifest
-.mcp.json                            Claude Code remote MCP server entry
-skills/mining-data/SKILL.md          how to query the dataset well (shared)
-skills/mining-data/agents/openai.yaml OpenAI skill interface + MCP dependency
-commands/*.md                        Claude Code slash commands
-```
+MIT for the files in this plugin. The Mining Data API service and its data are
+governed by the [terms of service](https://miningdataapi.com/terms).
