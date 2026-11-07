@@ -63,8 +63,9 @@ for how long.
 
 ## Support
 
-- Help and security reports: support@miningdataapi.com. Please do not post
-  exploitable details publicly.
+- [Support](https://miningdataapi.com/support): support@miningdataapi.com, for
+  help and for security reports. Please do not post exploitable details
+  publicly.
 - [Privacy policy](https://miningdataapi.com/privacy)
 - [Terms of service](https://miningdataapi.com/terms)
 
