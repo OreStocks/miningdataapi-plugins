@@ -2,7 +2,7 @@
 
 ## 1.3.5
 
-- Directory links: the homepage is miningdataapi.com, documentation is the plugin setup page (/plugins) rather than the REST reference, and support is support@miningdataapi.com, since the site has no support page.
+- Directory links name only pages that exist for what the field says: the homepage is miningdataapi.com, and `supportUrl` and `documentationUrl` are removed until there is a support page and plugin documentation.
 
 ## 1.3.4
 

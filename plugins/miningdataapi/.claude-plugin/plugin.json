@@ -12,8 +12,6 @@
   "homepage": "https://miningdataapi.com",
   "privacyPolicyUrl": "https://miningdataapi.com/privacy",
   "termsOfServiceUrl": "https://miningdataapi.com/terms",
-  "supportUrl": "mailto:support@miningdataapi.com",
-  "documentationUrl": "https://miningdataapi.com/plugins",
   "repository": "https://github.com/OreStocks/miningdataapi-plugins",
   "license": "MIT",
   "keywords": [
