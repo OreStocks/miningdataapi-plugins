@@ -6,7 +6,7 @@ plugin: a pointer to the remote MCP server, a skill and two slash commands.
 
 | Plugin | What it does | Requires |
 |---|---|---|
-| [`miningdataapi`](plugins/miningdataapi) | Mining Data API in Claude Code: drill results and financial statements | A Mining Data API account on any plan |
+| [`miningdataapi`](plugins/miningdataapi) | Mining Data API in Claude Code: drill results, financial statements, financings and technical reports | A Mining Data API account on any plan |
 
 ## Install
 

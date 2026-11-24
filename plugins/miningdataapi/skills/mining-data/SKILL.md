@@ -1,17 +1,21 @@
 ---
 name: mining-data
-description: Use when the user asks about listed mining or exploration companies, their drill results (intercepts, holes, assays), or their financial statements (cash, expenses, runway, options and warrants). Drives the Mining Data API MCP tools (search_*, get_record, dossiers) with the right filter vocabulary, plan awareness and citation discipline.
+description: Use when the user asks about listed mining or exploration companies, their drill results (intercepts, holes, assays), financial statements (cash, expenses, runway, options and warrants), financings (placements, debt, convertibles, streams and royalties) or technical reports (study economics, resource and reserve estimates). Drives the Mining Data API MCP tools (search_*, get_record, dossiers) with the right filter vocabulary, plan awareness and citation discipline.
 ---
 
 # Mining Data API
 
 The `miningdataapi` MCP server serves structured facts extracted from the
-public filings of listed mining companies. Two datasets are on sale at
-launch: **drill results** (the disclosure with every hole and interval) and
+public filings of listed mining companies. Four datasets are on every plan:
+**drill results** (the disclosure with every hole and interval),
 **financial statements** (cash, expenses, runway, option and warrant series),
-plus companies and the reference lists (commodities, countries, exchanges).
-Other datasets open on request through support@miningdataapi.com; a tool that
-answers `dataset_not_in_plan` means the account does not include that dataset.
+**financings** (one row per deal: type, status, gross proceeds and whether
+that amount is closed or a target, tranches and closings) and
+**technical reports** (one row per filed report: study economics and, on the
+record, every printed resource and reserve estimate), plus companies and the
+reference lists (commodities, countries, exchanges). Projects are in early
+access on request through support@miningdataapi.com; a tool that answers
+`dataset_not_in_plan` means the account does not include that dataset.
 Everything is read-only. Every
 record carries an id and, on paid accounts, `source_url`, the page of the
 filing or release it was extracted from; cite both. On the free sample
@@ -49,7 +53,16 @@ Every account can connect; what a tool returns follows what the account includes
   `universe` (a screen: how many rows match, rounded to tens), `live`
   (records after an account's fixed April 2026 sample window), `history`
   (records of the named company older than the account's history window),
-  `changes` (the changes feed, not included on every account).
+  `unreviewed` (financings and technical reports outside what is served, on
+  every account), `changes` (the changes feed, not included on every
+  account).
+- The free plan is answered in two ways. A request that names a company
+  (`company_id` or `symbol`) is answered live for that company, for a small
+  number of different companies a month and a limited history; the result
+  carries `basis` with what is left. A request that names no company (the
+  flow, a screen, a date range) is answered from the fixed sample month,
+  April 2026, and the result opens with `sample`: say which month the answer
+  covers and that it is not current data.
 - Tell the user plainly what their account returned and that the rest
   exists. Never quote prices, compare plans or push an upgrade.
 - Error codes to act on: `dataset_not_in_plan` (the dataset opens on request
@@ -62,6 +75,21 @@ Every account can connect; what a tool returns follows what the account includes
   `miningdataapi` and sign in in the browser. Claude Code stores the token;
   `claude mcp logout miningdataapi` forgets it.
 
+## Review status
+
+Drill results, financings and technical reports carry `review_status` on
+every record: `reviewed` when a reading against the source document has
+confirmed or corrected it, `not_reviewed` when it is served as extracted,
+null while no status is stated. Say which it is when you report a figure,
+and never call a `not_reviewed` record verified. A reviewed technical report
+serves only the fields and estimate rows that reading settled, so an empty
+field there means "not settled", not "not in the report".
+`describe_filters` says under `reviewed` what of each dataset is served
+(financings from a date on; a deal is dated by `deal_date`, with
+`date_basis` saying whether that is the announcement or the filing date).
+What lies outside is counted in `beyond.unreviewed`; `get_record` answers
+such a record `not_found` with that count beside the error.
+
 ## Workflow
 
 1. `describe_filters(resource)` once per resource per session. It returns
@@ -72,20 +100,26 @@ Every account can connect; what a tool returns follows what the account includes
    with `in`), `drill-countries` (country names as served, `Canada`; the
    filter also takes an ISO code), `countries`, `exchanges`, `currencies`,
    `companies`.
-3. `lookup_company(symbol | name)` to get a `company_id` from a ticker such
-   as `RIO.AX` or `abra.to` (any case). An ISIN resolves only where one is
-   recorded; prefer the ticker.
+3. `lookup_company(symbol | name | isin | query)` to get a `company_id` from
+   a ticker such as `RIO.AX` or `abra.to` (any case), a name or an ISIN. When
+   no single company matches it returns candidates: show them and ask, do not
+   pick one. An ISIN resolves only where one is recorded; prefer the ticker.
 4. `search_<resource>` with `filters`, `sort`, `columns`, `limit`. Use
    `company_id` to scope to one company. Start with a small `limit` (10 to
    25) and widen only when needed; a page is at most 100 rows. When you name
    `columns`, include `source_url` so every row keeps its link.
 5. `get_record(resource, id)` for the full record with its detail-only
-   sections (drill holes and intervals; option and warrant series).
+   sections (drill holes and intervals; option and warrant series; a
+   financing's tranches and closings; a technical report's estimates).
 6. `get_company_dossier(id)` for a one-call overview when the user wants a
    briefing rather than a table. Sections named in `excluded_datasets` are
    not in the plan.
+7. `get_cash_position` (by `company_id` or `symbol`) when the question is how much cash a company
+   has now: it returns the balance of the latest statement with its date and
+   the financings announced since.
 
-Resources: `drill-results`, `financial-statements`, `companies`, plus the
+Resources: `drill-results`, `financial-statements`, `financings`,
+`technical-reports`, `companies`, plus the
 reference lists `commodities`, `exchanges`, `countries`. Call
 `describe_filters` for the authoritative vocabulary.
 
@@ -114,6 +148,15 @@ the units listed by `describe_filters`; do not convert silently.
   expenses with `expense_basis`, runway with `runway_basis`, and the options
   and warrants outstanding with the dilution they imply when the share count
   is known.
+- A statement's cash is the balance at its period end, often months old.
+  If you estimate a current position from `get_cash_position`, say it is
+  your estimate and what it leaves out (`not_included`).
+- For financings state `gross_proceeds` with its basis (closed or target),
+  the status and the deal date with `date_basis`.
+- For technical reports state the report type, the filing date and
+  `review_status`; give NPV with its tax basis and discount rate. Say when
+  `is_superseded` is true: a newer report of the same study type exists.
+  Do not add estimate rows together into a total the report does not print.
 - Cite the record id for every factual claim and link it: write the id as a
   markdown link to the record's `source_url` (for example
   `[dr 48213](https://miningdataapi.com/source/NFG.V/5051565727733567)`), or
@@ -128,4 +171,5 @@ the units listed by `describe_filters`; do not convert silently.
 
 - `/miningdataapi:screen-drills <commodity> [days]` screens recent intercepts
   (if the account cannot run the screen, it screens the headline flow by hand).
-- `/miningdataapi:company-brief <ticker>` builds a briefing from the dossier.
+- `/miningdataapi:company-brief <ticker>` builds a briefing from the dossier
+  and the cash position.

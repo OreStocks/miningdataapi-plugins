@@ -8,6 +8,6 @@ dependencies:
   tools:
     - type: "mcp"
       value: "miningdataapi"
-      description: "Mining Data API: read-only search, records, dossiers and usage over the drill results and financial statements of listed mining companies (financings, projects and technical reports in early access, on request). Requires sign-in with a Mining Data API account."
+      description: "Mining Data API: read-only search, records, dossiers and usage over the drill results, financial statements, financings and technical reports of listed mining companies (projects in early access, on request). Requires sign-in with a Mining Data API account."
       transport: "streamable_http"
       url: "https://api.miningdataapi.com/mcp"

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0
+
+- Four datasets: the skill, the commands and the listing describe financings and technical reports beside drill results and financial statements, on every plan.
+- Review status: drill results, financings and technical reports say per record whether a reading against the source document has confirmed or corrected it. The skill tells Claude to state it and never to call a `not_reviewed` record verified.
+- Free plan: a question that names a company is answered with current data for five different companies a month; a question across companies is answered from the sample month, and Claude says which.
+- `get_cash_position`: the company briefing reads the latest balance with its date and the financings announced since.
+- `lookup_company` takes a ticker, a name or an ISIN and may return candidates; Claude asks rather than picks.
+
 ## 1.3.7
 
 - The Claude Directory refused 1.3.6: organizations Anthropic has not verified may not pre-approve tools beyond Read, Grep, Glob and LS, or ship files other than Markdown, text, JSON, YAML and PNG, JPEG, GIF, WebP or ICO images. The skill and both commands no longer carry `allowed-tools`, so Claude Code asks before a Mining Data API tool's first use.
