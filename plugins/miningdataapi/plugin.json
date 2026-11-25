@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "miningdataapi",
-  "version": "1.3.7",
-  "description": "Mining Data API: drill results and financial statements extracted from the public filings of listed mining companies. Read-only; sign in with your Mining Data API account.",
+  "version": "1.4.0",
+  "description": "Mining Data API: drill results, financial statements, financings and technical reports extracted from the public filings of listed mining companies. Read-only; sign in with your Mining Data API account.",
   "author": {
     "name": "Mining Data API",
     "email": "support@miningdataapi.com",
@@ -23,7 +23,7 @@
       "interface": {
         "displayName": "Mining Data API",
         "shortDescription": "Mining data from filings",
-        "longDescription": "Mining Data API gives ChatGPT read-only access to structured facts extracted from the public filings of listed mining companies: drill results (every hole and interval) and financial statements (cash, expenses, runway, options and warrants). Ask for a company's latest drilling, its cash and runway, this week's drill releases, the strongest intercepts for a commodity, or the companies below two quarters of runway. Every answer can cite the disclosure it came from.\n\nAll tools are read-only. You sign in with your existing Mining Data API account.",
+        "longDescription": "Mining Data API gives ChatGPT read-only access to structured facts extracted from the public filings of listed mining companies: drill results (every hole and interval), financial statements (cash, expenses, runway, options and warrants), financings (status, gross proceeds, tranches and closings) and technical reports (study economics and every printed resource and reserve estimate). Ask for a company's latest drilling, its cash and runway, this week's drill releases, the strongest intercepts for a commodity, or the companies below two quarters of runway. Every answer can cite the disclosure it came from.\n\nAll tools are read-only. You sign in with your existing Mining Data API account.",
         "developerName": "Mining Data API",
         "category": "Productivity",
         "capabilities": [
@@ -99,7 +99,7 @@
         "commerce_description": "No commerce. The plugin is read-only: it sells nothing, starts no subscription, shows no plans or prices and never links to a checkout or upgrade flow. The only link it may show is an informational page describing available plans."
       },
       "publication": {
-        "release_notes": "1.3.1: the listing, the skill and the commands describe drill results and financial statements; other datasets open on request. Where a filter is not available to the account, a search returns a count and the assistant explains it. Citations link to miningdataapi.com source pages."
+        "release_notes": "1.4.0: financings and technical reports are described beside drill results and financial statements. Records state whether they have been reviewed against their source document, and the assistant says so. A briefing reads the cash position with the financings announced since the last statement."
       }
     }
   }

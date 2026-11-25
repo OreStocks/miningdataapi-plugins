@@ -1,15 +1,19 @@
 # Mining Data API
 
 Structured facts from the public filings of listed mining companies, inside
-Claude: drill results with every hole and interval, and financial statements
-with cash, expenses, runway, options and warrants. Claude cites the record
-each fact comes from.
+Claude: drill results with every hole and interval, financial statements with
+cash, expenses, runway, options and warrants, financings with status, gross
+proceeds, tranches and closings, and technical reports with study economics
+and every printed resource and reserve estimate. Claude cites the record each
+fact comes from and says whether it has been reviewed against its filing.
 
 ## What you can ask
 
 - Show me ABRA.TO's latest drill results with holes, intervals and grades.
 - What does ABRA.TO's latest financial statement show: cash, expenses, runway, options and warrants?
 - Build a briefing on ABRA.TO: drilling, cash and runway, options and warrants.
+- How much cash does ABRA.TO have, and what has it raised since its last statement?
+- What does ABRA.TO's latest technical report say: NPV, IRR, capex and the resource estimates?
 - Which drill results came out this week, and what was the best intercept in each?
 - How much of my Mining Data API quota have I used this month?
 
@@ -30,9 +34,11 @@ You sign in with your Mining Data API account in the browser, through OAuth.
 No API key is needed. In Claude Code, run `/mcp`, choose `miningdataapi` and
 sign in; `claude mcp logout miningdataapi` forgets the token.
 
-Every plan can connect, and what a tool returns follows the plan. The free
-plan answers from a fixed sample month, April 2026. When something needs a
-different plan, the result says so.
+Every plan can connect, and what a tool returns follows the plan. On the free
+plan a question that names a company is answered with current data, for five
+different companies a month; a question across companies is answered from a
+fixed sample month, April 2026, and the answer says so. When something needs
+a different plan, the result says so.
 
 ## What it sends and keeps
 
@@ -53,6 +59,9 @@ for how long.
   `/mcp`, choose `miningdataapi` and sign in again.
 - **`dataset_not_in_plan`.** Your account does not include that dataset.
   Datasets in early access open on request through support@miningdataapi.com.
+- **A count instead of rows (`beyond.unreviewed`).** Financings before the
+  served date and technical reports outside the served set are counted, not
+  returned, on every plan.
 - **`plan_required`.** The request needs a different plan, and the error names
   it.
 - **`budget_exhausted`, `company_cap_reached` or `daily_records_cap`.** A limit
