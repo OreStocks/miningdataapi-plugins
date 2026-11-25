@@ -81,9 +81,12 @@ Drill results, financings and technical reports carry `review_status` on
 every record: `reviewed` when a reading against the source document has
 confirmed or corrected it, `not_reviewed` when it is served as extracted,
 null while no status is stated. Say which it is when you report a figure,
-and never call a `not_reviewed` record verified. A reviewed technical report
-serves only the fields and estimate rows that reading settled, so an empty
-field there means "not settled", not "not in the report".
+and never call a `not_reviewed` record verified. A technical report is
+served with every field and estimate row: `reviewed_fields` names the
+identity fields the reading settled, each row of `estimates` carries its own
+`review_status`, and the rest is as extracted. `estimates_complete: false`
+means the report prints estimate rows the record does not carry: say the
+list is partial.
 `describe_filters` says under `reviewed` what of each dataset is served
 (financings from a date on; a deal is dated by `deal_date`, with
 `date_basis` saying whether that is the announcement or the filing date).
